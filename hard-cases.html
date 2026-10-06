@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hard Cases: Overlap, Mixed Food, Sauces | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html" aria-current="page">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>Hard cases: overlapping food, mixed dishes, and sauces</h1>
+<p class="lede">Real meals are messy. Food touches, hides under other food, gets mixed together, and gets covered in sauce. This page reviews how recent papers handle each problem.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/hard-cases.mp3">Your browser does not support audio.</audio></div>
+<p>Most benchmark images show neat, separated foods. Real plates do not look like that, and a recent ingredient segmentation study points out that real meals are rarely cleanly separated into simple objects <sup><a href="bibliography.html#ref13">[13]</a></sup>. For an LV user, these hard cases matter even more, because the user cannot glance at the plate to catch the system's mistakes.</p>
+<h2>Overlapping and touching food</h2>
+<p>When two foods touch, their bounding boxes overlap, and a semantic segmentation mask may merge them into one blob. If two pieces of chicken touch, semantic segmentation sees one large "chicken" region, while instance segmentation separates them into two items. This is why instance segmentation is the better choice for plates with many items.</p>
+<p>Lv and colleagues studied this problem in pre-made dishes, where ingredients overlap heavily, many look alike, and lighting is often poor <sup><a href="bibliography.html#ref15">[15]</a></sup>. Instead of trusting one detector, they trained three different models (YOLOv5, YOLOv8, and the transformer-based DETR) and combined their predictions. The weight given to each model was tuned automatically with differential evolution, an optimization method that keeps a population of candidate weight settings and improves them over generations. Overlapping boxes from the three models were then merged with weighted boxes fusion. On their dataset of 2,200 images with 11 ingredient classes, the ensemble reached 90.9% mAP50, higher than any single model; the best single model, YOLOX, reached 88.4%. The authors note the method is still limited by incomplete data and the need to tune its settings.</p>
+<h2>Occlusion: food hidden under other food</h2>
+<figure><svg viewBox="0 0 640 250" role="img" aria-label="Left: visible mask of rice partly under curry. Right: amodal mask that guesses the full hidden shape" style="width:100%;height:auto"><g font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-size="14" fill="#1F2B30" text-anchor="middle">
+<g transform="translate(160,110)"><circle r="95" fill="#fff" stroke="#DCE3E0" stroke-width="4"/><ellipse cx="-10" cy="5" rx="62" ry="45" fill="#F1E9D2" stroke="#D99A1E" stroke-width="2.5"/><ellipse cx="25" cy="-5" rx="45" ry="38" fill="#C9772F" opacity=".95"/><text y="125">What the camera sees</text></g>
+<g transform="translate(480,110)"><circle r="95" fill="#fff" stroke="#DCE3E0" stroke-width="4"/><ellipse cx="-10" cy="5" rx="62" ry="45" fill="#F1E9D2" stroke="#2F6B4F" stroke-width="3" stroke-dasharray="7 5"/><ellipse cx="25" cy="-5" rx="45" ry="38" fill="#C9772F" opacity=".45"/><text y="125">Amodal mask: full rice shape</text></g>
+<path d="M290 110 h50" stroke="#D99A1E" stroke-width="3"/><path d="M340 103 l10 7 l-10 7z" fill="#D99A1E"/></g></svg><figcaption>Figure 9. A normal mask only covers the visible rice; an amodal mask estimates the full shape, including the part hidden under curry. Source: diagram created for this tutorial.</figcaption></figure>
+<p>Occlusion means part of a food is hidden. The classic example is rice under curry: the camera sees only the edge of the rice, so the system underestimates it or misses it completely. Researchers handle this in two ways. The first is <b>amodal segmentation</b>, which predicts the full shape of an object, including the hidden part, instead of only the visible pixels. The second is to capture more views, so food hidden in one view is visible in another.</p>
+<p>The 2026 bowl-meal study tackled occlusion directly <sup><a href="bibliography.html#ref5">[5]</a></sup>. In bowl meals, toppings are stacked on rice or noodles, and boundaries between foods stick together. The authors first improved their segmentation network to find food boundaries better, using detail enhancement, boundary-assisted supervision, and spatial position encoding. They then used multi-view 3D reconstruction to estimate volume. Most importantly, they added a layered compensation strategy for the staple food underneath, with separate handling for staple food that is partly hidden, mostly hidden, or completely invisible. This stopped the system from wrongly counting the volume of the top layer as the food underneath. Finally, food density and a nutrition database turned volume into weight and nutrients. At the whole-bowl level, the errors were about 13% for calories and 11% for total food mass.</p>
+<h2>Mixed dishes (curry, salad, stir-fry)</h2>
+<p>A mixed dish is hard because no single label fits. Is a stir-fry "chicken," "vegetables," or "noodles"? There are two strategies. One is to classify the whole dish and look up a standard recipe. This is simple, but every stir-fry is different. The other is ingredient-level segmentation, labeling each ingredient's pixels separately.</p>
+<p>A 2026 study that fine-tuned two small SegFormer models (a transformer-based segmentation network) on FoodSeg103 shows how hard the second strategy still is <sup><a href="bibliography.html#ref13">[13]</a></sup>. The larger model reached a mean IoU (intersection over union) of about 0.32, even though it labeled 79% of pixels correctly. IoU measures how much the predicted mask overlaps the true mask, where 1.0 is perfect. A score of 0.32 means the predicted and true regions overlap only a little on average. High pixel accuracy with low IoU means the model gets the big, easy regions right but misses many small ingredients. Larger models score higher, but ingredient-level segmentation is still far from solved. The authors found the models struggled most with mixed dishes, thin regions, small ingredients, and unclear boundaries. These are the same problems the creators of FoodSeg103 identified: overlap, visual similarity, different preparation styles, and class imbalance.</p>
+<h2>Food in sauces and liquids</h2>
+<p>Sauces cause two problems. First, they have no clear edges, so segmentation cannot tell where the sauce ends. Second, they hide what is underneath and can carry a lot of the meal (oil, dressing, gravy). The same study notes that camera angle, occlusion, plating, and ingredient thickness can all change how much image area a food covers without changing its real amount <sup><a href="bibliography.html#ref13">[13]</a></sup>. A thin layer of sauce spread across the plate covers a lot of pixels but very little food. Possible fixes include depth sensing, using typical recipes as a guide, and simply asking the user a short voice question such as "Is there sauce on the rice?"</p>
+<h2>Similar-looking foods</h2>
+<p>Some foods look almost the same, such as mashed potatoes and cauliflower mash, or grilled and fried chicken. VLMs struggle here: one 2025 benchmark found they had trouble telling apart cooking styles and visually similar foods <sup><a href="bibliography.html#ref10">[10]</a></sup>. DiningBench made this harder on purpose by including "hard negatives," similar dishes from the same menu, and found that 29 tested models struggled with fine-grained recognition <sup><a href="bibliography.html#ref16">[16]</a></sup>.</p>
+<h2>What this means for an LV user</h2>
+<p>Since these errors cannot be fully removed today, the app should be honest about uncertainty. Instead of confidently saying "chicken," it could say "probably chicken curry, there may be rice underneath." This lets the user decide whether to check by touch.</p>
+<h2>Summary</h2>
+<div class="table-wrap"><table>
+<tr><th>Problem</th><th>Why it breaks the pipeline</th><th>Current fix</th><th>Paper</th></tr>
+<tr><td>Overlap</td><td>Boxes and masks merge</td><td>Instance segmentation, detector ensembles</td><td><sup><a href="bibliography.html#ref15">[15]</a></sup></td></tr>
+<tr><td>Occlusion</td><td>Hidden food is missed or underestimated</td><td>Amodal masks, layered compensation, multi-view</td><td><sup><a href="bibliography.html#ref5">[5]</a></sup></td></tr>
+<tr><td>Mixed dishes</td><td>No single label fits</td><td>Ingredient-level segmentation, recipe lookup</td><td><sup><a href="bibliography.html#ref13">[13]</a></sup></td></tr>
+<tr><td>Sauces</td><td>No edges, hidden amount</td><td>Depth, recipe priors, asking the user</td><td><sup><a href="bibliography.html#ref13">[13]</a></sup></td></tr>
+<tr><td>Look-alikes</td><td>Fine-grained confusion</td><td>Hard-negative training, admitting uncertainty</td><td><sup><a href="bibliography.html#ref10">[10]</a></sup> <sup><a href="bibliography.html#ref16">[16]</a></sup></td></tr>
+</table></div>
+<div class="pager"><a href="pipeline.html">&larr; Finding and Recognizing Food</a><a href="results.html">Successes and Failures &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

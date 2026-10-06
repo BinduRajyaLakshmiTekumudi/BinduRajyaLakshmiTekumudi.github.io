@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html" aria-current="page">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>Test yourself</h1>
+<p class="lede">Eight quick questions. Tap an answer to see if you got it right and why.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/quiz.mp3">Your browser does not support audio.</audio></div>
+
+<div class="q" data-correct="1" data-ex="Detection draws a box around each item, which tells the app where it is."><p class="prompt">1. Which step in the pipeline finds where each food is on the plate?</p><button class="opt" data-q="0" data-i="0">Classification</button><button class="opt" data-q="0" data-i="1">Detection</button><button class="opt" data-q="0" data-i="2">Segmentation</button><button class="opt" data-q="0" data-i="3">Calorie lookup</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="3" data-ex="Area in pixels is not volume. Depth, multi-view, or a reference object is needed."><p class="prompt">2. Why does a single 2D photo make portion estimation hard?</p><button class="opt" data-q="1" data-i="0">Phones can't take color photos</button><button class="opt" data-q="1" data-i="1">Food is always blurry</button><button class="opt" data-q="1" data-i="2">Classification fails</button><button class="opt" data-q="1" data-i="3">It has no depth, so a tall pile and a flat layer can look the same size</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="0" data-ex="The new head trains first so the pretrained features are not wrecked by large early updates."><p class="prompt">3. In transfer learning, why freeze the pretrained backbone at first?</p><button class="opt" data-q="2" data-i="0">Because early layers already learned general features like edges and textures</button><button class="opt" data-q="2" data-i="1">To make the model bigger</button><button class="opt" data-q="2" data-i="2">To stop the model from using GPU</button><button class="opt" data-q="2" data-i="3">Because food has no edges</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="2" data-ex="Instance segmentation gives each item its own mask."><p class="prompt">4. Two pieces of chicken touching each other become one blob. Which method keeps them separate?</p><button class="opt" data-q="3" data-i="0">Semantic segmentation</button><button class="opt" data-q="3" data-i="1">Image classification</button><button class="opt" data-q="3" data-i="2">Instance segmentation</button><button class="opt" data-q="3" data-i="3">Color thresholding</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="3" data-ex="They estimated the hidden staple food volume in layers instead of only measuring what was visible."><p class="prompt">5. Rice is mostly hidden under curry. What did the 2026 bowl-meal study do about this?</p><button class="opt" data-q="4" data-i="0">Ignored the rice</button><button class="opt" data-q="4" data-i="1">Asked the user to remove the curry</button><button class="opt" data-q="4" data-i="2">Used a bigger classifier</button><button class="opt" data-q="4" data-i="3">Used a layered compensation strategy for partly, mostly, and fully hidden staple food</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="0" data-ex="IoU compares predicted and true pixels. 0.32 is low, showing mixed dishes are still difficult."><p class="prompt">6. A mean IoU of about 0.32 on ingredient-level segmentation means:</p><button class="opt" data-q="5" data-i="0">Predicted masks overlap the true masks only partly, so the task is still hard</button><button class="opt" data-q="5" data-i="1">The task is nearly solved</button><button class="opt" data-q="5" data-i="2">The model is 32% faster</button><button class="opt" data-q="5" data-i="3">32 ingredients were found</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="2" data-ex="Both FoodNExTDB and DiningBench report trouble with fine-grained discrimination and nutrition numbers."><p class="prompt">7. What do recent benchmarks say vision-language models still struggle with?</p><button class="opt" data-q="6" data-i="0">Recognizing any food at all</button><button class="opt" data-q="6" data-i="1">Reading text</button><button class="opt" data-q="6" data-i="2">Fine-grained differences like cooking style and look-alike dishes, and precise nutrition</button><button class="opt" data-q="6" data-i="3">Running in the cloud</button><p class="fb" aria-live="polite"></p></div><div class="q" data-correct="1" data-ex="Clock-face directions are a familiar way for blind people to locate items on a plate."><p class="prompt">8. For a blind user, which spoken output is most useful?</p><button class="opt" data-q="7" data-i="0">&quot;Bounding box at x=120, y=80&quot;</button><button class="opt" data-q="7" data-i="1">&quot;Rice at 9 o'clock, chicken at 12&quot;</button><button class="opt" data-q="7" data-i="2">&quot;Confidence 0.87&quot;</button><button class="opt" data-q="7" data-i="3">A beep</button><p class="fb" aria-live="polite"></p></div>
+<p id="score">Score: 0 / 8</p>
+<button class="opt" style="width:auto" onclick="location.reload()">Try again</button>
+<script>
+var score=0;
+document.querySelectorAll('.q').forEach(function(q){
+  var c=+q.dataset.correct, done=false;
+  q.querySelectorAll('button.opt').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(done) return; done=true;
+      var i=+b.dataset.i, btns=q.querySelectorAll('button.opt');
+      btns[c].classList.add('correct');
+      if(i===c){score++; q.querySelector('.fb').textContent='Correct. '+q.dataset.ex;}
+      else{b.classList.add('wrong'); q.querySelector('.fb').textContent='Not quite. '+q.dataset.ex;}
+      document.getElementById('score').textContent='Score: '+score+' / 8';
+    });
+  });
+});
+</script>
+<div class="pager"><a href="future.html">&larr; Future and Conclusions</a><a href="bibliography.html">Annotated Bibliography &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

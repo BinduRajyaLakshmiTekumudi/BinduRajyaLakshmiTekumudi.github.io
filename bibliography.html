@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Annotated Bibliography | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html" aria-current="page">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>Annotated bibliography</h1>
+<p class="lede">References in order of first appearance. Papers from 2010 to 2021 are used for background only; the main review relies on work from the last two years. Links to software documentation and product pages are included where the tutorial uses them.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/bibliography.mp3">Your browser does not support audio.</audio></div>
+
+<div class="ref" id="ref1"><p><span class="label">[1]</span> Adams, S. (2020, August 11). Use Lookout to take care of daily tasks faster. <i>The Keyword</i> (Google blog). <a href="https://blog.google/outreach-initiatives/accessibility/lookout-updates" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Announces Lookout's Food Label mode, which identifies packaged foods by label or barcode and guides blind users to position the item, plus a redesign based on feedback from blind and low-vision users.</p>
+<p><span class="label">Reliability:</span> Official Google blog post by a product manager on the accessibility team. Reliable for describing the product, but promotional and not research. Older (2020), used only to describe an existing app.</p></div>
+<div class="ref" id="ref2"><p><span class="label">[2]</span> Zahra, M. M. F. (2025). <i>Enhancing accessibility for visually impaired individuals</i>. University of Colombo School of Computing. <a href="https://dl.ucsc.cmb.ac.lk/jspui/handle/123456789/4956" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> A thesis that builds a mobile app for visually impaired users: it detects food in a video of the meal with YOLOv8 running as TensorFlow Lite on a mid-range Android phone, and speaks the detected foods with text-to-speech. It was evaluated with visually impaired participants.</p>
+<p><span class="label">Reliability:</span> Student thesis, not peer reviewed. Useful as a recent, realistic LV system example; results should be treated with caution.</p></div>
+<div class="ref" id="ref3"><p><span class="label">[3]</span> Zhu, F., Bosch, M., Woo, I., Kim, S., Boushey, C. J., Ebert, D. S., &amp; Delp, E. J. (2010). The use of mobile devices in aiding dietary assessment and evaluation. <i>IEEE Journal of Selected Topics in Signal Processing</i>, 4(4), 756&ndash;766.</p>
+<p><span class="label">Synopsis:</span> Background paper. Introduces Purdue's TADA system, which replaces a written food diary with a photo of the meal.</p>
+<p><span class="label">Reliability:</span> Peer-reviewed IEEE journal from an established Purdue lab. Older (2010), used only for historical background.</p></div>
+<div class="ref" id="ref4"><p><span class="label">[4]</span> Chrintz-Gath, G., Daivadanam, M., Matta, L., &amp; McKeever, S. (2025). Image-based dietary assessment using the Swedish plate model: Evaluation of deep learning-based You Only Look Once (YOLO) models. <i>JMIR Formative Research</i>, 9, e70124. https://doi.org/10.2196/70124 <a href="https://formative.jmir.org/2025/1/e70124" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Compares YOLOv7, YOLOv8, and YOLOv9 for detecting food components in meal photos and checking their proportions against the Swedish plate model. Uses preprocessing and augmentation and reports precision, recall, mAP, and F1; YOLOv8 performed best on peak precision and F1.</p>
+<p><span class="label">Reliability:</span> Peer-reviewed open-access medical informatics journal; authors from academic institutions. Recent and directly relevant.</p></div>
+<div class="ref" id="ref5"><p><span class="label">[5]</span> Ji, X., Feng, Y., Lu, H., Chu, D., &amp; Han, Q. (2026). Image-based prediction of food weight and nutritional composition in bowl-served meals using semantic segmentation and multi-view 3D reconstruction. <i>Nutrients</i>, 18(13), 2119. https://doi.org/10.3390/nu18132119 <a href="https://doi.org/10.3390/nu18132119" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Predicts the weight and nutrients of bowl meals by combining an improved segmentation network, multi-view 3D reconstruction, and a layered compensation strategy for staple food hidden under toppings. Whole-bowl errors were about 13% for calories and 11% for total food mass.</p>
+<p><span class="label">Reliability:</span> Peer-reviewed MDPI journal in nutrition science. Recent and directly relevant to occlusion.</p></div>
+<div class="ref" id="ref6"><p><span class="label">[6]</span> Thames, Q., Karpur, A., Norris, W., Xia, F., Panait, L., Weyand, T., &amp; Sim, J. (2021). Nutrition5k: Towards automatic nutritional understanding of generic food. <i>CVPR 2021</i>.</p>
+<p><span class="label">Synopsis:</span> Background paper. A dataset of real cafeteria dishes with overhead RGB-D images and measured nutrition.</p>
+<p><span class="label">Reliability:</span> Top-tier conference, Google Research. Background only.</p></div>
+<div class="ref" id="ref7"><p><span class="label">[7]</span> Mu, Y., Sun, J., &amp; He, J. (2025). Benchmarking and improving foundation model dietary estimates from meal images. <i>Proceedings of the 16th ACM International Conference on Bioinformatics, Computational Biology, and Health Informatics (BCB 2025)</i>. https://doi.org/10.1145/3765612.3767255 <a href="https://digitalcommons.odu.edu/computerscience_fac_pubs/417" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Compares seven large multimodal models (GPT, Gemini, Llama) with an RGB-D model on Nutrition5k and phone photos. Feeding a predicted food weight to Gemini 2.5 Flash lowered its carbohydrate error from 56.6% to 39.5% on 78 cases, and giving the true weight lowered it further to 20.2%.</p>
+<p><span class="label">Reliability:</span> Peer-reviewed ACM conference paper from Old Dominion University. Small test set (78 cases).</p></div>
+<div class="ref" id="ref8"><p><span class="label">[8]</span> Bossard, L., Guillaumin, M., &amp; Van Gool, L. (2014). Food-101: Mining discriminative components with random forests. <i>ECCV 2014</i>. Springer.</p>
+<p><span class="label">Synopsis:</span> Background paper. Introduces the Food-101 dataset of 101 food classes that many later classifiers train on.</p>
+<p><span class="label">Reliability:</span> Top-tier computer vision conference. Older (2014), used only for background.</p></div>
+<div class="ref" id="ref9"><p><span class="label">[9]</span> Min, W., Jiang, S., Liu, L., Rui, Y., &amp; Jain, R. (2019). A survey on food computing. <i>ACM Computing Surveys</i>, 52(5), Article 92.</p>
+<p><span class="label">Synopsis:</span> Background survey of food computing tasks, datasets, and methods.</p>
+<p><span class="label">Reliability:</span> Peer-reviewed ACM survey. Older (2019), background only.</p></div>
+<div class="ref" id="ref10"><p><span class="label">[10]</span> Romero-Tapiador, S., Tolosana, R., Lacruz-Pleguezuelos, B., Marcos Zambrano, L. J., Baz&aacute;n, G. X., Espinosa-Salinas, I., Fierrez, J., Ortega-Garcia, J., Carrillo de Santa Pau, E., &amp; Morales, A. (2025). Are vision-language models ready for dietary assessment? Exploring the next frontier in AI-powered food image recognition. <i>CVPR 2025 Workshops</i>. <a href="https://arxiv.org/abs/2504.06925" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Tests six VLMs (ChatGPT, Gemini, Claude, Moondream, DeepSeek, LLaVA) on FoodNExTDB, 9,263 expert-labeled images. Closed-source models did best, with over 90% expert-weighted recall on single products, but struggled with cooking styles and look-alike foods.</p>
+<p><span class="label">Reliability:</span> Published at a CVPR 2025 workshop by Universidad Autonoma de Madrid researchers. Recent and reliable.</p></div>
+<div class="ref" id="ref11"><p><span class="label">[11]</span> Hosseinian, A., Dehghani Zahedani, A., Mansoor, U., Hashemi, N., &amp; Woodward, M. (2025). January Food Benchmark (JFB): A public benchmark dataset and evaluation suite for multimodal food analysis. arXiv:2508.09966. <a href="https://arxiv.org/abs/2508.09966" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Releases 1,000 human-validated food images and a scoring framework. Their specialized model scored 86.2 overall versus 74.1 for the best general VLM setup (GPT-4o).</p>
+<p><span class="label">Reliability:</span> arXiv preprint from a company (January AI), which also built the winning model, so possible bias.</p></div>
+<div class="ref" id="ref12"><p><span class="label">[12]</span> TensorFlow. (n.d.). Transfer learning and fine-tuning. <i>TensorFlow Core tutorials</i>. <a href="https://www.tensorflow.org/tutorials/images/transfer_learning" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Official tutorial showing how to reuse a pretrained MobileNetV2, freeze it, add a new classifier, and fine-tune the top layers. The code on the Pipeline page is adapted from it.</p>
+<p><span class="label">Reliability:</span> Official documentation from Google's TensorFlow team. Reliable for code, not a research paper.</p></div>
+<div class="ref" id="ref13"><p><span class="label">[13]</span> Shrestha, J. (2026). Ingredient-level food image segmentation for nutrition awareness. arXiv:2606.24059. <a href="https://arxiv.org/abs/2606.24059" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Fine-tunes two small SegFormer models (B0 and B1) on FoodSeg103. The larger B1 reached 0.79 pixel accuracy and 0.32 mean IoU on 2,135 test images, with failures on mixed dishes, thin regions, small ingredients, and unclear boundaries.</p>
+<p><span class="label">Reliability:</span> Single-author arXiv preprint from DePaul University, not yet peer reviewed. Uses small models, so its scores are lower than state-of-the-art, but it is clear about its limitations.</p></div>
+<div class="ref" id="ref14"><p><span class="label">[14]</span> Meyers, A., Johnston, N., Rathod, V., Korattikara, A., Gorban, A., Silberman, N., Guadarrama, S., Papandreou, G., Huang, J., &amp; Murphy, K. (2015). Im2Calories: Towards an automated mobile vision food diary. <i>ICCV 2015</i>.</p>
+<p><span class="label">Synopsis:</span> Background paper. Google's early pipeline that goes from a meal photo to a calorie estimate.</p>
+<p><span class="label">Reliability:</span> Top-tier conference, Google Research. Older (2015), used only for background.</p></div>
+<div class="ref" id="ref15"><p><span class="label">[15]</span> Lv, L., Wu, J., Wu, D., Liu, X., Xia, Y., &amp; He, Y. (2024). Differential evolution integrated hybrid deep learning model for object detection in pre-made dishes. arXiv:2412.20370. <a href="https://arxiv.org/abs/2412.20370" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> Combines YOLOv5, YOLOv8, and DETR with weights tuned by differential evolution and weighted boxes fusion. The ensemble reached 90.9% mAP50 on 11 ingredient classes, beating every single model.</p>
+<p><span class="label">Reliability:</span> arXiv preprint from Southwest University and William &amp; Mary. Recent; used for the overlap discussion.</p></div>
+<div class="ref" id="ref16"><p><span class="label">[16]</span> Jin, S., Zhang, J., Zhang, X., Tian, Z., Jiang, F., Yin, G., Lin, W., Liu, Y., &amp; Yan, R. (2026). DiningBench: A hierarchical multi-view benchmark for perception and reasoning in the dietary domain. <i>ACL 2026</i>. <a href="https://aclanthology.org/2026.acl-long.1630/" target="_blank" rel="noopener">Link</a></p>
+<p><span class="label">Synopsis:</span> A benchmark of 3,021 dishes with about five images each and hard negatives from the same menu. 29 VLMs struggle with fine-grained recognition and nutrition reasoning.</p>
+<p><span class="label">Reliability:</span> Peer-reviewed at ACL 2026, a top language and AI venue. Recent and reliable.</p></div>
+<div class="pager"><a href="quiz.html">&larr; Quiz</a><span></span></div>
+</main>
+</div>
+</body>
+</html>

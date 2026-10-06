@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Successes and Failures | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html" aria-current="page">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>Successes and failures</h1>
+<p class="lede">How well do these systems actually work? This page compares reported results from the papers reviewed.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/results.mp3">Your browser does not support audio.</audio></div>
+<h2>Reported results</h2>
+<p>The papers use different datasets and metrics, so the numbers cannot be compared directly. Still, putting them side by side shows a clear pattern.</p>
+<div class="table-wrap"><table>
+<tr><th>Paper</th><th>Task</th><th>Dataset</th><th>Main result</th></tr>
+<tr><td>TADA, Zhu et al. 2010 <sup><a href="bibliography.html#ref3">[3]</a></sup> (background)</td><td>Photo-based food records</td><td>Meal photos</td><td>Showed a phone photo can replace a written diary</td></tr>
+<tr><td>Food-101, Bossard et al. 2014 <sup><a href="bibliography.html#ref8">[8]</a></sup> (background)</td><td>Classification</td><td>Food-101, 101 classes</td><td>Created the benchmark later CNNs are measured on</td></tr>
+<tr><td>Im2Calories, Meyers et al. 2015 <sup><a href="bibliography.html#ref14">[14]</a></sup> (background)</td><td>Photo to calories</td><td>Restaurant meals</td><td>First full photo-to-calorie pipeline</td></tr>
+<tr><td>Chrintz-Gath et al. 2025 <sup><a href="bibliography.html#ref4">[4]</a></sup></td><td>Detection (YOLOv7, v8, v9)</td><td>Meal photos, Swedish plate model</td><td>YOLOv8 best on peak precision and F1</td></tr>
+<tr><td>Ji et al. 2026 <sup><a href="bibliography.html#ref5">[5]</a></sup></td><td>Segmentation + 3D weight and nutrients</td><td>Bowl meals, multi-view</td><td>About 13% calorie error, 11% mass error</td></tr><tr><td>Lv et al. 2024 <sup><a href="bibliography.html#ref15">[15]</a></sup></td><td>Detection ensemble</td><td>Dish Ingredients, 2,200 images</td><td>mAP50 90.9% (best single model 88.4%)</td></tr>
+<tr><td>Ingredient segmentation 2026 <sup><a href="bibliography.html#ref13">[13]</a></sup></td><td>Segmentation</td><td>FoodSeg103</td><td>Mean IoU about 0.32</td></tr>
+<tr><td>Romero-Tapiador et al. 2025 <sup><a href="bibliography.html#ref10">[10]</a></sup></td><td>VLM recognition</td><td>FoodNExTDB, 9,263 images</td><td>Over 90% expert-weighted recall on single-product images</td></tr>
+<tr><td>January Food Benchmark 2025 <sup><a href="bibliography.html#ref11">[11]</a></sup></td><td>VLM meal analysis</td><td>1,000 images</td><td>Specialized model 86.2 vs best general VLM 74.1</td></tr>
+<tr><td>ODU 2025 <sup><a href="bibliography.html#ref7">[7]</a></sup></td><td>Carbohydrate estimation</td><td>Phone photos, 78 test cases</td><td>Error fell from 56.6% to 39.5% with predicted weight</td></tr>
+<tr><td>DiningBench 2026 <sup><a href="bibliography.html#ref16">[16]</a></sup></td><td>VLM benchmark</td><td>3,021 dishes</td><td>29 models struggle on fine details and nutrition</td></tr>
+</table></div>
+<figure><svg viewBox="0 0 600 290" role="img" aria-label="Bar chart of mAP50 on the Dish Ingredients dataset. The ensemble scores 90.9 percent, the best single model YOLOX 88.4 percent" style="width:100%;height:auto"><g font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-size="13" fill="#1F2B30"><text x="120" y="47" text-anchor="end">YOLOv5</text><rect x="130" y="30" width="230" height="24" rx="4" fill="#9DB8AC"/><text x="366" y="47" fill="#1F2B30">83.0%</text><text x="120" y="81" text-anchor="end">YOLOv8</text><rect x="130" y="64" width="276" height="24" rx="4" fill="#9DB8AC"/><text x="412" y="81" fill="#1F2B30">87.5%</text><text x="120" y="115" text-anchor="end">DETR</text><rect x="130" y="98" width="260" height="24" rx="4" fill="#9DB8AC"/><text x="396" y="115" fill="#1F2B30">86.0%</text><text x="120" y="149" text-anchor="end">Gold-YOLO</text><rect x="130" y="132" width="155" height="24" rx="4" fill="#9DB8AC"/><text x="290" y="149" fill="#1F2B30">75.5%</text><text x="120" y="183" text-anchor="end">DAMO-YOLO</text><rect x="130" y="166" width="261" height="24" rx="4" fill="#9DB8AC"/><text x="397" y="183" fill="#1F2B30">86.1%</text><text x="120" y="217" text-anchor="end">YOLOX</text><rect x="130" y="200" width="284" height="24" rx="4" fill="#9DB8AC"/><text x="420" y="217" fill="#1F2B30">88.4%</text><text x="120" y="251" text-anchor="end">Ensemble</text><rect x="130" y="234" width="309" height="24" rx="4" fill="#2F6B4F"/><text x="445" y="251" fill="#1F2B30">90.9%</text>
+<text x="130" y="282" fill="#56646A" font-size="12">mAP50 on Dish Ingredients (axis starts at 60%)</text></g></svg><figcaption>Figure 10. Detection results from Lv et al. (2024): combining three models beats every single model. Data from <sup><a href="bibliography.html#ref15">[15]</a></sup>. Source: diagram created for this tutorial.</figcaption></figure>
+<h2>Where they succeed</h2>
+<p>Recognizing a single, clearly separated food in good lighting is close to solved. VLMs reached over 90% expert-weighted recall on images with a single food product <sup><a href="bibliography.html#ref10">[10]</a></sup>, and modern YOLO models detect plate components reliably when foods are well separated <sup><a href="bibliography.html#ref4">[4]</a></sup>. Detection ensembles can push accuracy even higher on overlapping ingredients <sup><a href="bibliography.html#ref15">[15]</a></sup>. For an LV user, this means a phone can already answer "what is it?" and "where is it?" well for simple plates.</p>
+<h2>Where they fail</h2>
+<p>Performance drops quickly on real, messy meals. Ingredient-level segmentation reached only about 0.32 mean IoU, with failures on mixed dishes, thin regions, and small ingredients <sup><a href="bibliography.html#ref13">[13]</a></sup>. VLMs confuse cooking styles and similar-looking foods <sup><a href="bibliography.html#ref10">[10]</a></sup> <sup><a href="bibliography.html#ref16">[16]</a></sup>, and ingredient recognition is still hampered by heavy occlusion <sup><a href="bibliography.html#ref11">[11]</a></sup>. Datasets also lean toward certain cuisines, so dishes that are rare in the training data are recognized less well.</p>
+<h2>Why portion size is still the hardest part</h2>
+<p>Every paper that tried to estimate amounts reports large errors. Even the strongest general models were off by more than half on carbohydrates until they were given a weight estimate, and even then the error was still about 40%. Giving the true weight brought it down to about 20% <sup><a href="bibliography.html#ref7">[7]</a></sup>. By contrast, the bowl-meal system that used multiple views and occlusion compensation reached about 13% calorie error <sup><a href="bibliography.html#ref5">[5]</a></sup> <sup><a href="bibliography.html#ref7">[7]</a></sup>. DiningBench also found models weak at precise nutritional reasoning <sup><a href="bibliography.html#ref16">[16]</a></sup>. The reason goes back to the sensor: a single photo has no depth, and hidden or mixed food cannot be measured from pixels alone. So today's systems can tell an LV user what and where with good accuracy, but "how much" should be given as a rough estimate, not a precise number.</p>
+<div class="pager"><a href="hard-cases.html">&larr; Hard Cases: Overlap, Mixed Food, Sauces</a><a href="challenges.html">The Challenges &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

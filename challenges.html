@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Challenges | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html" aria-current="page">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>The challenges on a real phone</h1>
+<p class="lede">A model that works in a paper still has to work in someone's hand, at a dinner table, in bad light.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/challenges.mp3">Your browser does not support audio.</audio></div>
+<h2>Lighting, angle, and distance</h2>
+<p>Benchmark photos are usually taken from directly above in good light. A hand-held phone photo is different every time: it may be tilted, too close, too far, or taken in a dim restaurant. Poor lighting is one of the main obstacles named in the pre-made dishes study <sup><a href="bibliography.html#ref15">[15]</a></sup>. For blind users this is worse, because they cannot see whether the photo is good. Apps need to detect blurry or dark images and ask the user to try again, and guide them to center the plate with audio cues.</p>
+<h2>On the phone or in the cloud?</h2>
+<p>A model can run on the phone itself or on a cloud server. On-device models, such as the TensorFlow Lite version of YOLOv8 used in the LV food app, answer quickly, work without internet, and keep photos private <sup><a href="bibliography.html#ref2">[2]</a></sup>. But they must be small, which limits accuracy. Cloud models, including large VLMs, are far more capable but need a connection, add delay, and send photos of the user's meals to a company's server. For an LV user eating in a restaurant, I think a fast on-device detector should be the default, with the cloud used only when the user asks for more detail.</p>
+<h2>Dataset bias</h2>
+<p>Most large food datasets lean toward Western and Chinese restaurant dishes. A system trained on them may do well on burgers and fried rice but fail on an Indian thali, where many small dishes, rice, and bread share one plate. DiningBench, built from real menus, shows that even strong models struggle when dishes are fine-grained and similar <sup><a href="bibliography.html#ref16">[16]</a></sup>. Building datasets from many cuisines is necessary before these apps work for everyone.</p>
+<h2>Telling an LV user what is on the plate</h2>
+<p>Results must become short, useful speech. The common method is the clock face: the plate is treated like a clock, with 12 o'clock furthest from the person. Converting a detection to a clock position is a small geometry problem. Take the center of the food's bounding box, measure its angle from the center of the plate, and divide by 30 degrees (360 degrees / 12 hours).</p>
+<figure><img src="images/clock-plate.jpg" alt="A plate with bread at 12, salad at 1, chicken at 3, garnish at 5, beans at 7, butter at 9 and rice at 11 o'clock" width="1200" height="663" loading="lazy"><figcaption>Figure 11. The clock method used to describe a plate to a blind or low-vision person. Source: AI-generated image (Google Gemini, Nano Banana).</figcaption></figure>
+<figure><svg viewBox="0 0 560 300" role="img" aria-label="Plate divided into clock hours. Rice box center maps to 9, chicken to 12, salad to 3" style="width:100%;height:auto"><g font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-size="13" fill="#56646A">
+<circle cx="150" cy="150" r="132" fill="#fff" stroke="#DCE3E0" stroke-width="4"/><text x="150" y="37" text-anchor="middle">12</text><text x="209" y="53" text-anchor="middle">1</text><text x="252" y="96" text-anchor="middle">2</text><text x="268" y="155" text-anchor="middle">3</text><text x="252" y="214" text-anchor="middle">4</text><text x="209" y="257" text-anchor="middle">5</text><text x="150" y="273" text-anchor="middle">6</text><text x="91" y="257" text-anchor="middle">7</text><text x="48" y="214" text-anchor="middle">8</text><text x="32" y="155" text-anchor="middle">9</text><text x="48" y="96" text-anchor="middle">10</text><text x="91" y="53" text-anchor="middle">11</text>
+<circle cx="150" cy="150" r="4" fill="#1F2B30"/>
+<rect x="56" y="122" width="62" height="56" fill="none" stroke="#2F6B4F" stroke-width="2.5"/><circle cx="87" cy="150" r="4" fill="#2F6B4F"/><line x1="150" y1="150" x2="87" y2="150" stroke="#D99A1E" stroke-width="2" stroke-dasharray="5 4"/>
+<rect x="122" y="48" width="56" height="50" fill="none" stroke="#2F6B4F" stroke-width="2.5"/><circle cx="150" cy="73" r="4" fill="#2F6B4F"/><line x1="150" y1="150" x2="150" y2="73" stroke="#D99A1E" stroke-width="2" stroke-dasharray="5 4"/>
+<rect x="184" y="124" width="56" height="52" fill="none" stroke="#2F6B4F" stroke-width="2.5"/><circle cx="212" cy="150" r="4" fill="#2F6B4F"/><line x1="150" y1="150" x2="212" y2="150" stroke="#D99A1E" stroke-width="2" stroke-dasharray="5 4"/>
+<g fill="#1F2B30" font-size="15"><text x="310" y="110">Box center left of plate center</text><text x="310" y="130" fill="#2F6B4F">rice at 9 o'clock</text>
+<text x="310" y="165">Box center above</text><text x="310" y="185" fill="#2F6B4F">chicken at 12 o'clock</text>
+<text x="310" y="220">Box center right</text><text x="310" y="240" fill="#2F6B4F">salad at 3 o'clock</text></g></g></svg><figcaption>Figure 12. Mapping detected boxes to clock positions around the plate center. Source: diagram created for this tutorial.</figcaption></figure>
+<pre><code>import math
+
+def clock_position(box, plate_center):
+    """box = (x1, y1, x2, y2) in image pixels; y grows downward."""
+    cx = (box[0] + box[2]) / 2
+    cy = (box[1] + box[3]) / 2
+    dx = cx - plate_center[0]          # + means right of center
+    dy = plate_center[1] - cy          # + means above center
+    angle = math.degrees(math.atan2(dx, dy)) % 360   # 0 = straight up
+    hour = round(angle / 30) % 12
+    return 12 if hour == 0 else hour
+
+# Example: rice detected left of the plate center
+print(clock_position((56, 122, 118, 178), (150, 150)))   # -&gt; 9</code></pre>
+<p>The spoken output should be short, for example "Rice at 9, chicken at 12, salad at 3," and read through text-to-speech, as in the LV app above <sup><a href="bibliography.html#ref2">[2]</a></sup>. For people with partial vision, the screen can add large, high-contrast labels over each food. Phone versus smart glasses also matters here: glasses keep the hands free and see the plate from the eater's point of view, but need extra hardware.</p>
+<h2>Battery and privacy</h2>
+<p>Running the camera and a neural network for a whole meal drains the battery, so apps should analyze a single photo or a few frames rather than nonstop video. Privacy is another concern. Meal photos can reveal a person's health, religion, or location, and an LV user may not see what else is in the frame, such as other people at the table. On-device processing, or deleting photos right after analysis, helps protect users.</p>
+<div class="pager"><a href="results.html">&larr; Successes and Failures</a><a href="future.html">Future and Conclusions &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction and Problem | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html" aria-current="page">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>The "What's on my plate?" problem</h1>
+<p class="lede">For a blind or low-vision (LV) person, a plate of food is a puzzle that sighted people solve at a glance.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/problem.mp3">Your browser does not support audio.</audio></div>
+<h2>Who needs this</h2>
+<p>Low vision covers a wide range, from people who are completely blind to people who still see shapes and colors but cannot make out details. In both cases, a plate set in front of them raises three questions: what food was served, where each item is, and how much there is. Today most LV people answer these questions by asking a friend or a waiter, or by carefully touching the food with a fork or fingers. That works, but it takes away some independence, especially in restaurants or when eating alone.</p>
+<p>Phone apps already help with some food tasks. Google's Lookout app, for example, can identify packaged food by its label or barcode and read it aloud <sup><a href="bibliography.html#ref1">[1]</a></sup>. A plate of cooked food is much harder, because there is no label or barcode, the food can be any shape, and items touch and overlap. Researchers have started building systems for exactly this case. One recent student project ran a YOLOv8 detector on a mid-range Android phone and spoke the names of the detected foods to visually impaired users <sup><a href="bibliography.html#ref2">[2]</a></sup>.</p>
+<figure><img src="images/lv-user-meal.jpg" alt="A user with covered eyes and a white cane eats at a restaurant while holding a phone that describes the plate" width="1200" height="655" loading="lazy"><figcaption>Figure 1. A low-vision user eating at a restaurant, with a white cane nearby, using a phone app that describes the food on her plate. Source: AI-generated image (Google Gemini, Nano Banana).</figcaption></figure>
+<h2>Why "how much" matters for LV users</h2>
+<p>Knowing the amount of food is also useful. It tells a person whether a serving is very large, how much is left, and whether they have finished one item before moving to the next. Most of the research on estimating portions comes from dietary assessment, where the goal is to replace handwritten food diaries with a photo of the meal. Purdue's TADA project was one of the first to propose this idea <sup><a href="bibliography.html#ref3">[3]</a></sup>. This tutorial borrows those portion methods and looks at them from the point of view of an LV user.</p>
+<h2>What the system must output</h2>
+<p>Putting this together, a food-on-plate system for LV users needs to produce three outputs. Each one maps to a classic computer vision task:</p>
+<div class="table-wrap"><table>
+<tr><th>Output</th><th>Computer vision task</th><th>Why an LV user needs it</th></tr>
+<tr><td>What is it?</td><td>Classification</td><td>Knowing what was served</td></tr>
+<tr><td>Where is it?</td><td>Detection</td><td>Reaching each item (clock positions)</td></tr>
+<tr><td>How much?</td><td>Segmentation + portion estimation</td><td>Knowing how much is there or left</td></tr>
+</table></div>
+<p>The final step is turning these outputs into something the person can use. For blind users that usually means short spoken sentences using clock positions, such as "rice at 9 o'clock," which is a common way to describe a plate to someone who cannot see it. For people with partial sight, the phone screen can also help with large, high-contrast labels drawn over the food. The rest of this tutorial looks at how each of these steps is done and how well current research handles them.</p>
+<div class="pager"><a href="index.html">&larr; Home</a><a href="sensors.html">Sensor Possibilities &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Future and Conclusions | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html" aria-current="page">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>The future and conclusions</h1>
+<p class="lede">Where food recognition research is heading, and what I took away from reviewing these papers.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/future.mp3">Your browser does not support audio.</audio></div>
+<h2>Active research groups</h2>
+<ul>
+<li><b>Purdue University, TADA project.</b> One of the earliest groups to use phone photos for dietary assessment, and still a major name in food image analysis <sup><a href="bibliography.html#ref3">[3]</a></sup>.</li>
+<li><b>Google Research.</b> Built Im2Calories <sup><a href="bibliography.html#ref14">[14]</a></sup> and the Nutrition5k dataset with depth images and measured nutrition <sup><a href="bibliography.html#ref6">[6]</a></sup>.</li>
+<li><b>University of Electro-Communications (UEC), Tokyo.</b> Created the UEC-Food datasets of Japanese and Asian dishes, widely used for detection and segmentation research.</li>
+<li><b>Chinese Academy of Sciences, Institute of Computing Technology.</b> Home of the food computing survey authors <sup><a href="bibliography.html#ref9">[9]</a></sup> and a large body of work on food recognition.</li>
+<li><b>Universidad Autonoma de Madrid, AI4Food.</b> Built FoodNExTDB and tested how ready VLMs are for dietary assessment <sup><a href="bibliography.html#ref10">[10]</a></sup>.</li>
+<li><b>January AI.</b> A company that released the January Food Benchmark and a specialized food model <sup><a href="bibliography.html#ref11">[11]</a></sup>.</li>
+<li><b>The DiningBench team.</b> Released a large multi-view benchmark for testing VLMs on food <sup><a href="bibliography.html#ref16">[16]</a></sup>.</li>
+</ul>
+<h2>New directions</h2>
+<p><b>Vision-language models.</b> The biggest shift is toward general VLMs that can recognize dishes they were never trained on and describe a whole meal in natural sentences <sup><a href="bibliography.html#ref10">[10]</a></sup>. For LV users this is exciting, because the app could answer follow-up questions like "Is the soup still hot-looking?" or "Which side is the bread on?"</p>
+<p><b>Combining VLMs with specialized models.</b> Benchmarks show general VLMs are weak at fine details and amounts <sup><a href="bibliography.html#ref11">[11]</a></sup> <sup><a href="bibliography.html#ref16">[16]</a></sup>. A promising direction is to combine them with specialized models. The ODU study did this by feeding a predicted food weight into a VLM, which cut its error a lot <sup><a href="bibliography.html#ref7">[7]</a></sup>.</p>
+<p><b>Better occlusion handling.</b> Multi-view capture, 3D reconstruction, and layered compensation for hidden food are making mixed and stacked meals more manageable <sup><a href="bibliography.html#ref5">[5]</a></sup>.</p>
+<p><b>Photo plus voice.</b> Since some information can never be seen in a photo, such as what is under the sauce, future apps will likely mix camera input with short voice questions and answers.</p>
+<h2>Conclusions</h2>
+<p>After reviewing these papers, my main takeaway is that the "what" and "where" parts of the problem are largely solved for simple plates. Detectors like YOLOv8 work well on separated foods, and VLMs can name common dishes with high accuracy. The hard part is real meals: overlapping food, food hidden under other food, mixed dishes, and sauces. These cases still cause large errors, and estimating "how much" remains the weakest step.</p>
+<p>For blind and low-vision users, I think the most promising design is a hybrid: a small on-device detector that quickly speaks clock positions, with a cloud VLM available when the user wants a richer description, and an honest way of saying when the system is unsure. With better multi-view capture and more diverse datasets, a phone that reliably tells an LV person what is on their plate seems achievable in the next few years.</p>
+<div class="pager"><a href="challenges.html">&larr; The Challenges</a><a href="quiz.html">Quiz &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>

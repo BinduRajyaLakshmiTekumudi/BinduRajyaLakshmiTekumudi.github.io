@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finding and Recognizing Food | What's on My Plate?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="side">
+<a class="brand" href="index.html">What's on My Plate?</a>
+<p class="byline">Bindu Rajya Lakshmi Tekumudi</p>
+<button class="menu-toggle" aria-expanded="false" aria-controls="side" onclick="var n=document.getElementById('side');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu</button>
+<ol><li><a href="index.html">Home</a></li><li class="num"><a href="problem.html">Introduction and Problem</a></li><li class="num"><a href="sensors.html">Sensor Possibilities</a></li><li class="num"><a href="pipeline.html" aria-current="page">Finding and Recognizing Food</a></li><li class="num"><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces</a></li><li class="num"><a href="results.html">Successes and Failures</a></li><li class="num"><a href="challenges.html">The Challenges</a></li><li class="num"><a href="future.html">Future and Conclusions</a></li></ol><div class="divider"></div><ol><li><a href="quiz.html">Quiz</a></li><li><a href="bibliography.html">Annotated Bibliography</a></li></ol>
+</nav>
+<main>
+<h1>Finding and recognizing the food</h1>
+<p class="lede">Almost every system reviewed here follows the same three steps: find each food, name it, then outline it so its size can be measured.</p>
+<div class="audio"><span>Listen to this page</span>
+<audio controls preload="none" src="audio/pipeline.mp3">Your browser does not support audio.</audio></div>
+<figure><svg viewBox="0 0 690 150" role="img" aria-label="Pipeline: photo, detection, classification, segmentation, portion estimate, spoken output" style="width:100%;height:auto"><g font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-size="14" fill="#1F2B30" text-anchor="middle">
+<rect x="0" y="40" width="110" height="70" rx="10" fill="#fff" stroke="#2F6B4F" stroke-width="2"/><text x="55" y="70" font-weight="600">Photo</text><text x="55" y="90" fill="#56646A" font-size="12">phone camera</text><path d="M112 75 h18" stroke="#D99A1E" stroke-width="3"/><path d="M130 69 l8 6 l-8 6z" fill="#D99A1E"/><rect x="140" y="40" width="110" height="70" rx="10" fill="#fff" stroke="#2F6B4F" stroke-width="2"/><text x="195" y="70" font-weight="600">Detect</text><text x="195" y="90" fill="#56646A" font-size="12">where? (boxes)</text><path d="M252 75 h18" stroke="#D99A1E" stroke-width="3"/><path d="M270 69 l8 6 l-8 6z" fill="#D99A1E"/><rect x="280" y="40" width="110" height="70" rx="10" fill="#fff" stroke="#2F6B4F" stroke-width="2"/><text x="335" y="70" font-weight="600">Classify</text><text x="335" y="90" fill="#56646A" font-size="12">what? (labels)</text><path d="M392 75 h18" stroke="#D99A1E" stroke-width="3"/><path d="M410 69 l8 6 l-8 6z" fill="#D99A1E"/><rect x="420" y="40" width="110" height="70" rx="10" fill="#fff" stroke="#2F6B4F" stroke-width="2"/><text x="475" y="70" font-weight="600">Segment</text><text x="475" y="90" fill="#56646A" font-size="12">which pixels?</text><path d="M532 75 h18" stroke="#D99A1E" stroke-width="3"/><path d="M550 69 l8 6 l-8 6z" fill="#D99A1E"/><rect x="560" y="40" width="110" height="70" rx="10" fill="#fff" stroke="#2F6B4F" stroke-width="2"/><text x="615" y="70" font-weight="600">Portion + speech</text><text x="615" y="90" fill="#56646A" font-size="12">how much? say it</text>
+<text x="345" y="140" fill="#56646A" font-size="12">Steps 1 to 3 are the core computer vision pipeline; step 4 turns pixels into an answer for the user</text></g></svg><figcaption>Figure 5. The food recognition pipeline used by most systems. Source: diagram created for this tutorial.</figcaption></figure>
+<h2>Step 1: Detection (where is each food?)</h2>
+<p>Detection finds each food item and draws a bounding box around it. For an LV user, this is the step that answers "where?". There are two main families of detectors. Two-stage detectors such as Faster R-CNN first propose regions that might contain an object and then classify each region, which is accurate but slower. One-stage detectors such as YOLO (You Only Look Once) predict boxes and classes in a single pass over the image, which makes them fast enough to run on a phone.</p>
+<p>A 2025 study by Chrintz-Gath and colleagues compared three YOLO versions, YOLOv7, YOLOv8, and YOLOv9, on a custom dataset of 3,707 annotated meal photos covering 42 food classes <sup><a href="bibliography.html#ref4">[4]</a></sup>. Their goal was to check whether a meal follows the Swedish plate model, which recommends how much of the plate should be vegetables, carbohydrates, and protein. They used preprocessing and data augmentation to make the models more robust, and measured precision, recall, mAP, and F1 score. YOLOv8 had the best peak precision and F1 score of the three. The newest version was not automatically the best, which is a useful lesson when choosing a model.</p>
+<figure><img src="images/yolo-detection.jpg" alt="Four meal photos with green bounding boxes around rice, meat, vegetables and a spoon, each labeled with a class code" width="1200" height="928" loading="lazy"><figcaption>Figure 6. YOLO detection on real meal photos. Each green box marks a detected item with its class code; note how boxes overlap when foods touch (panels A, C and D). Source: Figure 4 in Chotwanvirat, P., Prachansuwan, A., Sridonpai, P., et al. (2024). Automated artificial intelligence&ndash;based Thai food dietary assessment system: Development and validation. <i>Current Developments in Nutrition</i>, 8(5), 102154. <a href="https://doi.org/10.1016/j.cdnut.2024.102154" target="_blank" rel="noopener">https://doi.org/10.1016/j.cdnut.2024.102154</a></figcaption></figure>
+<h2>Step 2: Classification (what is it?)</h2>
+<p>Classification gives each detected item a name. Early systems used hand-designed features such as color histograms and texture patterns. The Food-101 paper, for example, used random forests to find discriminative parts of food images across 101 food classes <sup><a href="bibliography.html#ref8">[8]</a></sup>. A full history of these older methods is in the food computing survey by Min and colleagues <sup><a href="bibliography.html#ref9">[9]</a></sup>. Today, convolutional neural networks (CNNs) and vision transformers are standard. They learn their own features from data and are much more accurate.</p>
+<p>The newest option is vision-language models (VLMs), such as GPT, Gemini, and Claude, which can name food from a photo and a text prompt without any food-specific training <sup><a href="bibliography.html#ref10">[10]</a></sup>. Benchmarks show they are good at common foods but still behind specialized models: on the January Food Benchmark, a specialized food model scored 86.2 overall, while the best general-purpose setup (GPT-4o) scored 74.1 <sup><a href="bibliography.html#ref11">[11]</a></sup>.</p>
+<h3>Algorithm in detail: training a food classifier with transfer learning</h3>
+<p>Most food classifiers are not trained from scratch, because food datasets are small compared to general image datasets. Instead they use transfer learning. The code below fine-tunes MobileNetV2, a small CNN designed for phones, on a food dataset such as Food-101. It is adapted from the official TensorFlow transfer learning tutorial <sup><a href="bibliography.html#ref12">[12]</a></sup>.</p>
+<pre><code>import tensorflow as tf
+from tensorflow.keras import layers
+
+IMG = 224
+NUM_CLASSES = 101  # e.g. Food-101
+
+train_ds = tf.keras.utils.image_dataset_from_directory(
+    "food/train", image_size=(IMG, IMG), batch_size=32)
+val_ds = tf.keras.utils.image_dataset_from_directory(
+    "food/val", image_size=(IMG, IMG), batch_size=32)
+
+# 1. Load a backbone already trained on ImageNet, without its classifier
+base = tf.keras.applications.MobileNetV2(
+    input_shape=(IMG, IMG, 3), include_top=False, weights="imagenet")
+base.trainable = False          # 2. Freeze it
+
+# 3. Add a new head for food classes
+inputs = tf.keras.Input(shape=(IMG, IMG, 3))
+x = layers.RandomFlip("horizontal")(inputs)       # augmentation
+x = layers.RandomRotation(0.1)(x)
+x = tf.keras.applications.mobilenet_v2.preprocess_input(x)
+x = base(x, training=False)
+x = layers.GlobalAveragePooling2D()(x)
+x = layers.Dropout(0.2)(x)
+outputs = layers.Dense(NUM_CLASSES, activation="softmax")(x)
+model = tf.keras.Model(inputs, outputs)
+
+# 4. Train only the new head
+model.compile(optimizer="adam",
+              loss="sparse_categorical_crossentropy",
+              metrics=["accuracy"])
+model.fit(train_ds, validation_data=val_ds, epochs=5)
+
+# 5. Fine-tune: unfreeze the top layers with a small learning rate
+base.trainable = True
+for layer in base.layers[:-30]:
+    layer.trainable = False
+model.compile(optimizer=tf.keras.optimizers.Adam(1e-5),
+              loss="sparse_categorical_crossentropy",
+              metrics=["accuracy"])
+model.fit(train_ds, validation_data=val_ds, epochs=5)</code></pre>
+<p>Here is what each part does:</p>
+<ol>
+<li><b>Load a pretrained backbone.</b> MobileNetV2 was already trained on ImageNet, 1.4 million images of everyday objects. Its early layers have learned to detect edges, colors, and textures, which are just as useful for food. Setting <code>include_top=False</code> removes its original 1,000-class output layer.</li>
+<li><b>Freeze it.</b> At first, the backbone's weights are locked so the large, random updates from the new layer do not destroy what it already knows.</li>
+<li><b>Add a new head.</b> Global average pooling turns the feature map into one vector, dropout reduces overfitting, and a dense layer with softmax outputs one probability per food class. The random flips and rotations are data augmentation, which helps with phone photos taken at odd angles.</li>
+<li><b>Train the head.</b> Only the new layers learn during the first few epochs.</li>
+<li><b>Fine-tune.</b> The top 30 layers of the backbone are unfrozen and trained with a very small learning rate, so they adapt to food-specific details without forgetting their general knowledge.</li>
+</ol>
+<p><b>When to use something else.</b> MobileNetV2 is a good choice when the model must run on the phone itself. EfficientNet or a vision transformer is more accurate but heavier, so it suits a cloud server. A VLM needs no training at all and can name unusual dishes, but it is slow, needs internet, and is weaker on fine details.</p>
+<h2>Step 3: Segmentation (exactly which pixels?)</h2>
+<p>A bounding box is a rough rectangle, so it also includes plate and neighboring food. Segmentation labels the exact pixels of each food. Semantic segmentation gives every pixel a class, such as "rice" or "curry." Instance segmentation goes further and separates individual items, so two pieces of chicken become two separate masks. A 2026 study fine-tuned a segmentation model on FoodSeg103, a dataset with pixel labels for 103 ingredient classes, to segment food at the ingredient level <sup><a href="bibliography.html#ref13">[13]</a></sup>. Segmentation is what makes portion estimation possible, but it is also where messy real meals cause the most trouble, as the next page shows.</p>
+<figure><img src="images/segmentation-mask.jpg" alt="A plate of spaghetti, salad and bread rolls beside its black and white segmentation mask" width="916" height="466" loading="lazy"><figcaption>Figure 7. Binary segmentation separates food (white) from background (black), but it does not say which food is which. Source: AI-generated image (Google Gemini, Nano Banana).</figcaption></figure>
+<figure><svg viewBox="0 0 640 300" role="img" aria-label="Left: a plate with rice, chicken curry, broccoli and bread. Right: the same plate with a colored segmentation mask over each food and a legend" style="width:100%;height:auto"><g font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-size="13">
+<defs><g id="foods">
+<circle r="105" fill="#fff" stroke="#DCE3E0" stroke-width="4"/>
+<path d="M-80 -10 q10 -50 60 -48 q30 10 20 50 q-10 40 -50 40 q-35 -5 -30 -42z" fill="#F1E9D2"/>
+<path d="M-5 -60 q50 -20 75 15 q10 35 -25 45 q-40 5 -55 -20 q-10 -25 5 -40z" fill="#C9772F"/>
+<g fill="#5E9C6E"><circle cx="35" cy="45" r="16"/><circle cx="58" cy="35" r="14"/><circle cx="52" cy="60" r="13"/></g>
+<path d="M-40 45 q20 -12 45 0 q8 30 -20 40 q-30 0 -25 -40z" fill="#D9B27A"/>
+</g></defs>
+<g transform="translate(160,140)"><use href="#foods"/><text y="135" text-anchor="middle" fill="#1F2B30">Input photo</text></g>
+<g transform="translate(400,140)"><use href="#foods"/>
+<path d="M-80 -10 q10 -50 60 -48 q30 10 20 50 q-10 40 -50 40 q-35 -5 -30 -42z" fill="#4C8DD6" opacity=".6" stroke="#1E5FA8" stroke-width="2"/>
+<path d="M-5 -60 q50 -20 75 15 q10 35 -25 45 q-40 5 -55 -20 q-10 -25 5 -40z" fill="#E0503A" opacity=".92" stroke="#9E2A18" stroke-width="2"/>
+<g fill="#3FBF6F" opacity=".7" stroke="#1D7A40" stroke-width="2"><circle cx="35" cy="45" r="16"/><circle cx="58" cy="35" r="14"/><circle cx="52" cy="60" r="13"/></g>
+<path d="M-40 45 q20 -12 45 0 q8 30 -20 40 q-30 0 -25 -40z" fill="#F2C230" opacity=".7" stroke="#A8810E" stroke-width="2"/>
+<text y="135" text-anchor="middle" fill="#1F2B30">Segmentation masks</text></g>
+<g transform="translate(530,70)" fill="#1F2B30"><rect width="14" height="14" fill="#4C8DD6"/><text x="20" y="12">rice</text><rect y="26" width="14" height="14" fill="#E0503A"/><text x="20" y="38">chicken curry</text><rect y="52" width="14" height="14" fill="#3FBF6F"/><text x="20" y="64">broccoli</text><rect y="78" width="14" height="14" fill="#F2C230"/><text x="20" y="90">bread</text></g>
+</g></svg><figcaption>Figure 8. Per-item segmentation goes further and gives each food its own labeled mask, so each item&#39;s area can be measured. Source: illustration created for this tutorial.</figcaption></figure>
+<h2>Step 4: From pixels to portions</h2>
+<p>Once each food has a mask, the system can measure its area. But area is not volume, so depth or multiple views are needed to get a real amount. Google's Im2Calories was an early pipeline that went from a single photo to a calorie estimate <sup><a href="bibliography.html#ref14">[14]</a></sup>, and Nutrition5k later added depth images <sup><a href="bibliography.html#ref6">[6]</a></sup>. The 2026 bowl-meal study shows the modern version: segmentation masks plus 3D reconstruction give a volume, a density table converts volume to weight, and a nutrition database gives calories, fat, carbohydrate, and protein <sup><a href="bibliography.html#ref5">[5]</a></sup>. For an LV user, the weight alone is often enough, for example "about one cup of rice."</p>
+<h2>Comparing the approaches</h2>
+<div class="table-wrap"><table>
+<tr><th>Approach</th><th>Strength</th><th>Weakness</th><th>When I would use it</th></tr>
+<tr><td>YOLO detector + CNN classifier</td><td>Fast, runs on a phone, works offline</td><td>Only knows the classes it was trained on; boxes are rough</td><td>Real-time spoken feedback for an LV user at the table</td></tr>
+<tr><td>Instance segmentation (YOLO-seg, Mask R-CNN)</td><td>Separates touching items, gives exact areas</td><td>Needs pixel-labeled training data; slower</td><td>When portion size matters or food overlaps</td></tr>
+<tr><td>Vision-language model</td><td>No training, names unusual dishes, can describe the meal in sentences</td><td>Needs internet, slower, weak on fine details and amounts</td><td>A detailed description when speed is less important</td></tr>
+</table></div>
+<p>In my view, the best system for LV users would combine both: a small on-device detector for fast "where is it" answers, and a VLM in the cloud when the user asks for a fuller description.</p>
+<div class="pager"><a href="sensors.html">&larr; Sensor Possibilities</a><a href="hard-cases.html">Hard Cases: Overlap, Mixed Food, Sauces &rarr;</a></div>
+</main>
+</div>
+</body>
+</html>
